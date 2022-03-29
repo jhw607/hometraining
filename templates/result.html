@@ -70,8 +70,19 @@
         margin-left: auto;
         margin-right: auto;       
     }
+    
+    #tagbox{
+        margin: auto;
+        padding: auto;
+        text-align: center;        
+    }
+    .tag{
+        margin: auto;
+        padding: auto;
+        /* display: inline-block; */
+    }
 
-    .results {
+    #results {
         display: none;
     }
     </style>
@@ -184,7 +195,7 @@
                 <button class="button is-success is-fullwidth" >아무거나 할래요!</button>
             </div>                       
         </div>
-        <div class="results">
+        <div id="results">
     ​        <div class="tags are-large" id="tagbox">
                 <span class="tag" id="time_tag">All</span>
                 <span class="tag" id="tool_tag">Large</span>
