@@ -81,76 +81,72 @@
     }
     </style>
     <script>
+        let random_bool = false;
         let black_list = [];
-        console.log(black_list);
-        $('document').ready(function start() {
-            // 페이지 로딩되면
-            // $("#card-box").html("");    // 여기 확인할것
-            // hey();
-            // showMemo();
-        });
-        function search() { //ht_time, ht_tool, ht_body
-        // function editMemo(memoId) {   //수정
-            //console.log("time, tool, body");
-            // #1 입력한 데이터 가져오기
-            let time = $(`#ht_time`).find(":selected").val();
-            let tool = $(`#ht_tool`).find(":selected").val();
-            let body = $(`#ht_body`).find(":selected").val();
-            var dict = {'short': '#15분이내',
-                        'middle': '#15분~30분',
-                        'long': '#30분이상',
-                        'noUse': '#기구미사용',
-                        'band': '#밴드',
-                        'dumbbell': '#아령',
-                        'ball': '#짐볼',
-                        'upper': '#상체',
-                        'lower': '#하체',
-                        'whole': '#전신'
+        var dict = {'short': '#15분이내',
+                    'middle': '#15분~30분',
+                    'long': '#30분이상',
+                    'noUse': '#기구미사용',
+                    'band': '#밴드',
+                    'dumbbell': '#아령',
+                    'ball': '#짐볼',
+                    'upper': '#상체',
+                    'lower': '#하체',
+                    'whole': '#전신'
+        }
+        function search() {
+            console.log(random_bool)
+            let time = random_bool ? 'u' : $(`#ht_time`).find(":selected").val();
+            let tool = random_bool ? 'u' : $(`#ht_tool`).find(":selected").val();
+            let body = random_bool ? 'u' : $(`#ht_body`).find(":selected").val();
+            console.log(time, tool, body);
+            if (!random_bool){
+                if(time==""||time=="none"){
+                    alert('소요시간을 선택해주세요!');
+                }else if(tool==""||tool=="none"){
+                    alert('기구 사용 여부를 선택해주세요!');
+                }else if(body==""||body=="none"){
+                    alert('운동부위를 선택해주세요!');
+                }
             }
-            //console.log(time, tool, body);
             
-            // #2 데이터가 있는지 확인
-            if(time==""||time=="none"){
-                alert('소요시간을 선택해주세요!');
-            }else if(tool==""||tool=="none"){
-                alert('기구 사용 여부를 선택해주세요!');
-            }else if(body==""||body=="none"){
-                alert('운동부위를 선택해주세요!');
-            }else{
-                document.getElementById("time_tag").innerHTML = dict[time];
-                document.getElementById("tool_tag").innerHTML = dict[tool];
-                document.getElementById("body_tag").innerHTML = dict[body];
-                // #3 post로 검색 조건 전송 - 시간, 기구, 부위
-                $.ajax({
-                    type: "POST",
-                    url: "/search",
-                    data: {'time_give':time, 'tool_give':tool, 'body_give':body},   //'time_give':time, 'tool_give':tool, 'body_give':body
-                    success: function (response) {
-                        if (response['result'] == 'success') {
-                            videos = response['video_list'];
-                            console.log(videos);
-                            console.log(black_list.length);
-                            let rand = Math.floor(Math.random()*videos.length);                            
-                            temp = 'https://www.youtube.com/embed/'+videos[rand]['url'];
-                            if(black_list.indexOf(temp)<0){
-                                black_list.push(temp)
-                                document.getElementById("video-box").setAttribute('src',temp);
-                                document.getElementById('results').style.display = 'block';
-                                document.getElementById('search-box').style.display = 'none';
+            $.ajax({
+                type: "POST",
+                url: "/search",
+                data: {'time_give':time, 'tool_give':tool, 'body_give':body},   //'time_give':time, 'tool_give':tool, 'body_give':body
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        videos = response['video_list'];
+                        console.log(videos);
+                        let rand = Math.floor(Math.random()*videos.length);                            
+                        temp = 'https://www.youtube.com/embed/'+videos[rand]['url'];
+                        console.log(temp);
+                        document.getElementById("time_tag").innerHTML = dict[videos[rand]['HT_TIME']];
+                        document.getElementById("tool_tag").innerHTML = dict[videos[rand]['HT_TOOL']];
+                        document.getElementById("body_tag").innerHTML = dict[videos[rand]['HT_BODY']];
+                        if(black_list.indexOf(temp)<0){ //블랙리스트에 없으면
+                            black_list.push(temp);
+                            console.log(black_list);
+                            document.getElementById("video-box").setAttribute('src',temp);
+                            document.getElementById('results').style.display = 'block';
+                            document.getElementById('search-box').style.display = 'none';
+                        }else{ //블랙리스트에 있고
+                            if(black_list.length<videos.length){ 
+                                search();
                             }else{
-                                if(black_list.length<videos.length){
-                                    search();
-                                }else{
-                                    alert("더 이상 추천할 수 없습니다. 다른 조건을 검색해주세요.")
-                                    window.location.reload();
-                                }
+                                alert("더 이상 추천할 수 없습니다. 다른 조건을 검색해주세요.")
+                                window.location.reload();
                             }
-                            
-
                         }
+                        
+
                     }
-                });
-            }
+                }
+            });
+        }
+        function any(){
+            random_bool = true;
+            search(true);
         }
         
     </script>
@@ -196,7 +192,7 @@
                 </span>
             </div>
             <div class="buttons drop-box">
-                <button class="button is-success is-fullwidth" >아무거나 할래요!</button>
+                <button class="button is-success is-fullwidth" onclick="any()">아무거나 할래요!</button>
             </div>                       
         </div>
         <div id="results">
