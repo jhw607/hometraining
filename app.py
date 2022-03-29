@@ -46,7 +46,7 @@ def api_login():
 	if result is not None:
 		payload = {
 			'id': user_id,
-			'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60)  # 로그인 24시간 유지
+			'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)  # 로그인 24시간 유지
 		}
 		token = jwt.encode(payload, secret_key, algorithm=algorithm_key)
 
