@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>홈트 | 로그인</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <!-- Bulma CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <!-- Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src=“https://code.jquery.com/jquery-3.4.1.js”></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- 폰트 가져오기 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Do Hyeon", sans-serif;
+      }
+      .wrapper{
+          margin-top: 10px;
+          height: 90%;
+          width: 100%;
+      }
+      .wrapper-one {
+        height: 500px;
+        margin-top: 5px;
+      }
+      .wrapper-two{
+          width: 500px;
+          height: 500px;
+          margin-top: 30px;
+          position: relative;
+      }
+      .title {
+        background-color: #6dcbce;
+        color: white;
+        font-weight: 300;
+        font-size: 40px;
+        padding: 4px;
+        text-align: center;
+      }
+      .box{
+          margin-left: 50px;
+          text-align: left;
+          padding: 5px;
+          font-size: 20px;
+          width: 470px;
+          height: 280px;
+      }
+      .box-three{
+          font-size: 25px;
+          margin-top: 50px;
+          margin-right: 40px;
+          border-style: dotted;
+      }
+      .float-container {
+          width: 50px;
+          margin-top: 40px;
+          align-items: center;
+          text-align: center;
+      }
+      .float-child {
+          width: 50%;
+          float: left;
+      }
+      .ranking {
+          font-size: 20px;
+          text-align: center;
+      }
+      .myBtn{
+        background-color: white;
+          border-color: #CF9FFF ;
+          border-style: solid;
+          border-radius: 10px;
+          font-size: 20px;
+          font-weight: 2000;
+          margin-top: 50px;
+      }
+    </style>
+
+    <script>
+      // 영상 띄우기
+      // $(document).ready(function () {
+      //   showVideos();
+      // });
+
+      // function showVideos(){
+      //   //   ajax 코드
+      // }
+      // 최근 한 운동 id: #box-one
+      // 가장 많이 한 운동 id: #box-two
+
+      
+// 운동하러가기 버튼
+
+        function exercise(){
+          alert("운동하러 가자!!!");
+        }
+
+//       function exercise() {
+//         $.ajax({
+//           type: "GET",
+//           url: "/result",
+//           data: {},
+//           success: function (response) {
+//             window.location.replace("/result")
+//             }
+//         });
+//       }
+
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+        <div id="userTitle" class="title">
+            <p>user님, 오늘도 건강하세요!</p>
+        </div>
+    
+    <div class="columns">
+    <div class="wrapper-one column">
+        <div class="box box-small" id="box-one">
+          최근 한 운동
+          <iframe
+            width="420"
+            height="240"
+            src="https://www.youtube.com/embed/wrLlzn5TjLY"
+          >
+          </iframe>
+        </div>
+        <div class="box box-small" id="box-two">
+          가장 많이 한 운동
+            <iframe
+              width="420"
+              height="240"
+              src="https://www.youtube.com/embed/myNjmnvI6x0"
+            >
+            </iframe>
+        </div>
+      </div>
+
+        <div class="wrapper-two column float-container">
+            <div class="float-child">
+              <div class="ranking" id="lastWeekRank">
+                  <p>00위</p>
+                  <p>지난 주 랭킹</p>
+                </div>
+            </div>
+            
+            <div class="float-child">
+              <div class="ranking" id="lastWeekHour">
+                <p>00시간 00분</p>
+                <p>지난 주 운동량</p>
+              </div>
+            </div>
+
+            <div class="ranking" id="thisWeekHour">
+                <p>00시간 00분</p>
+                <p>이번 주 운동량</p>
+              </div>  
+              
+            <button class="myBtn" onclick="exercise()">
+                <img src="../static/runner.png" alt="Runner" width="200" height="100"/>
+                  운동하러 가기
+            </button>
+        </div>
+        
+          
+    </div>
+</div>
+    </div>
+  </body>
+</html>
