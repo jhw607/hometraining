@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+​
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+​
+    <title>SW사관학교 정글 W00 | 홈트레이닝 추천 시스템</title>
+    <!-- Bulma css 가져오기 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!--  js 가져오기 -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <!-- jQuery 가져오기 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- 폰트 가져오기 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" 교차 출처>
+    <link href="https: //fonts.googleapis.com/css2? family= 도+현 & display=swap" rel="stylesheet">
+    <style type="text/css">
+    *{
+        font-family: '도현', sans-serif;
+    }
+    .wrap {
+        width: 900px;
+        margin: auto;
+    }​
+    .space {
+        height: 300px;
+        margin: auto;
+    }
+    #search-box {
+        /* color: black; */
+        font-weight: bold;
+        margin: 100px, auto;
+        text-align: center;
+    }
+    .drop-box {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: auto;
+        text-align: center;
+        width: 690px;
+    }
+    .drop {
+        margin: auto;
+        /* text-align: center; */
+    }
+    .video-box {
+        width: 560px;
+        margin: auto;
+        padding: auto;
+        /* position: relative; */
+    }
+    #video-box {
+        margin:auto;
+        padding: auto;
+        /* position: absolute; */
+    }
+    /* width="560" height="315"  */
+    
+    .re {
+        width: 200px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    </style>
+    <script>
+        $('document').ready(function start() {
+            // 페이지 로딩되면
+            // $("#card-box").html("");    // 여기 확인할것
+            // hey();
+            // showMemo();
+        });
+        function search() { //ht_time, ht_tool, ht_body
+        // function editMemo(memoId) {   //수정
+            //console.log("time, tool, body");
+            // #1 입력한 데이터 가져오기
+            let time = $(`#ht_time`).find(":selected").val();
+            let tool = $(`#ht_tool`).find(":selected").val();
+            let body = $(`#ht_body`).find(":selected").val();
+            var dict = {'short': '#15분이내',
+                        'middle': '#15분~30분',
+                        'long': '#30분이상',
+                        'noUse': '#기구미사용',
+                        'band': '#밴드',
+                        'dumbbell': '#아령',
+                        'ball': '#짐볼',
+                        'upper': '#상체',
+                        'lower': '#하체',
+                        'whole': '#전신'
+            }
+            //console.log(time, tool, body);
+            
+            // #2 데이터가 있는지 확인
+            if(time==""||time=="none"){
+                alert('소요시간을 선택해주세요!');
+            }else if(tool==""||tool=="none"){
+                alert('기구 사용 여부를 선택해주세요!');
+            }else if(body==""||body=="none"){
+                alert('운동부위를 선택해주세요!');
+            }else{
+                document.getElementById("time_tag").innerHTML = dict[time];
+                document.getElementById("tool_tag").innerHTML = dict[tool];
+                document.getElementById("body_tag").innerHTML = dict[body];
+                // #3 /edit에 POST 방식으로 메모 수정 요청하기
+                $.ajax({
+                    type: "POST",
+                    url: "/search",
+                    data: {},   //'time_give':time, 'tool_give':tool, 'body_give':body
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            
+                        }
+                    }
+                });
+            }
+        }
+        
+    </script>
+</head>
+<body>
+    <!-- 전체화면 -->
+    <div class="wrap">
+        <div class="title">
+        </div>
+        <div class="space">
+​
+        </div>
+        <!-- 조건 검색 박스 -->
+        <div id="search-box" class="box">
+            <!-- 드롭다운 -->         
+                <div class="drop-box">
+                    <span class="select is-success drop" >
+                        <select id="ht_time">
+                        <option value="none">소요시간 선택</option>
+                        <option value="short">15분 이내</option>
+                        <option value="middle">15분 이상 30분 이내</option>
+                        <option value="long">30분 이상</option>
+                        </select>
+                    </span>
+                    <span class="select is-success drop" >
+                        <select id="ht_tool">
+                        <option value="none">기구 사용 여부</option>
+                        <option value="noUse">기구 미사용</option>
+                        <option value="band">밴드</option>
+                        <option value="dumbbell">아령</option>
+                        <option value="ball">짐볼</option>
+                        </select>
+                    </span>
+                    <span class="select is-success drop" >
+                        <select id="ht_body">
+                        <option value="none">운동부위 선택</option>
+                        <option value="upper">상체</option>
+                        <option value="lower">하체</option>
+                        <option value="whole">전신</option>
+                        </select>
+                    </span>      
+                    <span>
+                        <button class="button is-dark" type="submit" onclick="search()">조회</button>
+                    </span>
+                </div>
+                <div class="buttons drop-box">
+                    <button class="button is-success is-fullwidth" >아무거나 할래요!</button>
+                </div>                       
+        </div> 
+​        <div class="tags are-large" id="tagbox">
+            <span class="tag" id="time_tag">All</span>
+            <span class="tag" id="tool_tag">Large</span>
+            <span class="tag" id="body_tag">Size</span>
+        </div>
+        <div class="video-box">
+            <p style="align-content: center;">
+            <iframe id="video-box" width="560" height="315" src="https://www.youtube.com/embed/myNjmnvI6x0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </p>
+        </div>    
+        
+        <div class="drop-box">
+            <button class="button is-primary re">다른 영상 추천</button>
+            <button class="button is-danger re">조건 바꾸기</button>
+        </div>
+​
+    </div>
+</body>
+​
+</html>

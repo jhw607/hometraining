@@ -1,0 +1,4 @@
+{
+    "SECRET_KEY" : "@jungle!project#secret$key%for%git&",
+    "ALGORITHM" : "HS256"
+}
