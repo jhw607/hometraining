@@ -68,7 +68,11 @@
         margin-top: 10px;
         margin-bottom: 10px;
         margin-left: auto;
-        margin-right: auto;
+        margin-right: auto;       
+    }
+
+    .results {
+        display: none;
     }
     </style>
     <script>
@@ -125,6 +129,8 @@
                             console.log(temp)
 
                             document.getElementById("video-box").setAttribute('src',temp);
+                            document.getElementById('results').style.display = 'block';
+                            document.getElementById('search-box').style.display = 'none';
 
                         }
                     }
@@ -139,62 +145,61 @@
     <div class="wrap">
         <div class="title">
         </div>
-        <div class="space">
-​
+        <div class="space">​
         </div>
         <!-- 조건 검색 박스 -->
         <div id="search-box" class="box">
             <!-- 드롭다운 -->         
-                <div class="drop-box">
-                    <span class="select is-success drop" >
-                        <select id="ht_time">
-                        <option value="none">소요시간 선택</option>
-                        <option value="short">15분 이내</option>
-                        <option value="middle">15분 이상 30분 이내</option>
-                        <option value="long">30분 이상</option>
-                        </select>
-                    </span>
-                    <span class="select is-success drop" >
-                        <select id="ht_tool">
-                        <option value="none">기구 사용 여부</option>
-                        <option value="noUse">기구 미사용</option>
-                        <option value="band">밴드</option>
-                        <option value="dumbbell">아령</option>
-                        <option value="ball">짐볼</option>
-                        </select>
-                    </span>
-                    <span class="select is-success drop" >
-                        <select id="ht_body">
-                        <option value="none">운동부위 선택</option>
-                        <option value="upper">상체</option>
-                        <option value="lower">하체</option>
-                        <option value="whole">전신</option>
-                        </select>
-                    </span>      
-                    <span>
-                        <button class="button is-dark" type="submit" onclick="search()">조회</button>
-                    </span>
-                </div>
-                <div class="buttons drop-box">
-                    <button class="button is-success is-fullwidth" >아무거나 할래요!</button>
-                </div>                       
-        </div> 
-​        <div class="tags are-large" id="tagbox">
-            <span class="tag" id="time_tag">All</span>
-            <span class="tag" id="tool_tag">Large</span>
-            <span class="tag" id="body_tag">Size</span>
+            <div class="drop-box">
+                <span class="select is-success drop" >
+                    <select id="ht_time">
+                    <option value="none">소요시간 선택</option>
+                    <option value="short">15분 이내</option>
+                    <option value="middle">15분 이상 30분 이내</option>
+                    <option value="long">30분 이상</option>
+                    </select>
+                </span>
+                <span class="select is-success drop" >
+                    <select id="ht_tool">
+                    <option value="none">기구 사용 여부</option>
+                    <option value="noUse">기구 미사용</option>
+                    <option value="band">밴드</option>
+                    <option value="dumbbell">아령</option>
+                    <option value="ball">짐볼</option>
+                    </select>
+                </span>
+                <span class="select is-success drop" >
+                    <select id="ht_body">
+                    <option value="none">운동부위 선택</option>
+                    <option value="upper">상체</option>
+                    <option value="lower">하체</option>
+                    <option value="whole">전신</option>
+                    </select>
+                </span>      
+                <span>
+                    <button class="button is-dark" type="submit" onclick="search()">조회</button>
+                </span>
+            </div>
+            <div class="buttons drop-box">
+                <button class="button is-success is-fullwidth" >아무거나 할래요!</button>
+            </div>                       
         </div>
-        <div class="video-box">
-            <p style="align-content: center;">
-            <iframe id="video-box" width="560" height="315" src="https://www.youtube.com/embed/myNjmnvI6x0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </p>
-        </div>    
-        
-        <div class="drop-box">
-            <button class="button is-primary re">다른 영상 추천</button>
-            <button class="button is-danger re">조건 바꾸기</button>
+        <div class="results">
+    ​        <div class="tags are-large" id="tagbox">
+                <span class="tag" id="time_tag">All</span>
+                <span class="tag" id="tool_tag">Large</span>
+                <span class="tag" id="body_tag">Size</span>
+            </div>
+            <div class="video-box">
+                <p style="align-content: center;">
+                <iframe id="video-box" width="560" height="315" src="https://www.youtube.com/embed/myNjmnvI6x0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </p>
+            </div>             
+            <div class="drop-box">
+                <button class="button is-primary re" onclick="">다른 영상 추천</button>
+                <button class="button is-danger re">조건 바꾸기</button>
+            </div>​        
         </div>
-​
     </div>
 </body>
 ​
