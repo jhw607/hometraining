@@ -12,8 +12,11 @@ secret_key = json_data['SECRET_KEY']
 algorithm_key = json_data['ALGORITHM']
 
 #MongoDB
-client = MongoClient('localhost', 27017)  # mongoDB는 27017 포트로 돌아갑니다.
-db = client.test 
+uri = "mongodb+srv://cluster0.ctkbc.mongodb.net/myFirstDatabase?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority"
+client = MongoClient(uri,
+                     tls=True,
+                     tlsCertificateKeyFile='X509-cert-6481087293358866486.pem')
+db = client.account
 
 # Flask
 application = Flask(import_name = __name__)
