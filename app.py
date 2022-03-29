@@ -13,15 +13,12 @@ algorithm_key = json_data['ALGORITHM']
 
 #MongoDB
 uri = "mongodb+srv://cluster0.ctkbc.mongodb.net/myFirstDatabase?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority"
-client = MongoClient(uri,
-                     tls=True,
-                     tlsCertificateKeyFile='X509-cert-6481087293358866486.pem')
+client = MongoClient(uri,tls=True, tlsCertificateKeyFile='X509-cert-6481087293358866486.pem')
 db = client.account
 db_video = client.video
 
 # Flask
 application = Flask(import_name = __name__)
-secret_key = "testtest"
 application.config["JWT_SECRET_KEY"] = secret_key
 
 
