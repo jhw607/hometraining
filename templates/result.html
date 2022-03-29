@@ -109,14 +109,23 @@
                 document.getElementById("time_tag").innerHTML = dict[time];
                 document.getElementById("tool_tag").innerHTML = dict[tool];
                 document.getElementById("body_tag").innerHTML = dict[body];
-                // #3 /edit에 POST 방식으로 메모 수정 요청하기
+                // #3 post로 검색 조건 전송 - 시간, 기구, 부위
                 $.ajax({
                     type: "POST",
                     url: "/search",
-                    data: {},   //'time_give':time, 'tool_give':tool, 'body_give':body
+                    data: {'time_give':time, 'tool_give':tool, 'body_give':body},   //'time_give':time, 'tool_give':tool, 'body_give':body
                     success: function (response) {
                         if (response['result'] == 'success') {
+                            videos = response['video_list'];
+                            console.log(videos);
+                            let rand = Math.floor(Math.random()*videos.length);
+                            console.log(rand);
                             
+                            temp = 'https://www.youtube.com/embed/'+videos[rand]['url'];
+                            console.log(temp)
+
+                            document.getElementById("video-box").setAttribute('src',temp);
+
                         }
                     }
                 });

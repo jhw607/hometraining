@@ -17,6 +17,7 @@ client = MongoClient(uri,
                      tls=True,
                      tlsCertificateKeyFile='X509-cert-6481087293358866486.pem')
 db = client.account
+db_video = client.video
 
 # Flask
 application = Flask(import_name = __name__)
@@ -86,6 +87,17 @@ def api_register():
         'result': 'success', 
         'msg':'회원가입이 완료되었습니다.'
         }) 
+
+@application.route('/search', methods=['POST'])
+def video_search():
+	time_receive = request.form['time_give']
+	tool_receive = request.form['tool_give']
+	body_receive = request.form['body_give']
+
+	# 시간, 기구, 부위를 조건으로 id 제외하고 리스트로 받아오기
+	videos = list(db_video.video.find({'HT_TIME':time_receive, 'HT_TOOL':tool_receive, 'HT_BODY':body_receive}, {'_id':False}))
+	
+	return jsonify({'result':'success', 'video_list':videos})
 
 
 
