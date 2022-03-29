@@ -81,6 +81,8 @@
     }
     </style>
     <script>
+        let black_list = [];
+        console.log(black_list);
         $('document').ready(function start() {
             // 페이지 로딩되면
             // $("#card-box").html("");    // 여기 확인할것
@@ -127,15 +129,23 @@
                         if (response['result'] == 'success') {
                             videos = response['video_list'];
                             console.log(videos);
-                            let rand = Math.floor(Math.random()*videos.length);
-                            console.log(rand);
-                            
+                            console.log(black_list.length);
+                            let rand = Math.floor(Math.random()*videos.length);                            
                             temp = 'https://www.youtube.com/embed/'+videos[rand]['url'];
-                            console.log(temp)
-
-                            document.getElementById("video-box").setAttribute('src',temp);
-                            document.getElementById('results').style.display = 'block';
-                            document.getElementById('search-box').style.display = 'none';
+                            if(black_list.indexOf(temp)<0){
+                                black_list.push(temp)
+                                document.getElementById("video-box").setAttribute('src',temp);
+                                document.getElementById('results').style.display = 'block';
+                                document.getElementById('search-box').style.display = 'none';
+                            }else{
+                                if(black_list.length<videos.length){
+                                    search();
+                                }else{
+                                    alert("더 이상 추천할 수 없습니다. 다른 조건을 검색해주세요.")
+                                    window.location.reload();
+                                }
+                            }
+                            
 
                         }
                     }
@@ -201,7 +211,7 @@
                 </p>
             </div>             
             <div class="drop-box">
-                <button class="button is-primary re" onclick="">다른 영상 추천</button>
+                <button class="button is-primary re" onclick="search()">다른 영상 추천</button>
                 <button class="button is-danger re" onclick="window.location.reload()">조건 바꾸기</button>
             </div>​        
         </div>
