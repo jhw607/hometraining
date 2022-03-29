@@ -72,7 +72,6 @@
                   let mytoken = response['token']
                    if (response['result'] == 'success') {
                         $.cookie('mytoken', response['token']);
-                        alert("로그인성공")
                         window.location.replace("/result")
                     } else {
                         alert(response['msg'])
