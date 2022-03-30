@@ -158,5 +158,15 @@ def user_account():
 	except jwt.exceptions.DecodeError:
 		return redirect("http://localhost:5000/")
 
+@application.route('/edit', methods=['POST'])
+def account_edit():
+	id_receive = request.form['userId_give']
+	name_receive = request.form['editName_give']
+	pw_receive = request.form['editPw_give']
+	db.user.update_one({'id':id_receive},{'$set':{'name':name_receive, 'pw':pw_receive}})
+	return jsonify({'result':'success', 'msg':'수정완료!'})
+
+
+
 if __name__ == '__main__':
 	application.run(host = '0.0.0.0',port = 5000, debug = True)

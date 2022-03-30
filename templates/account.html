@@ -56,27 +56,29 @@
       
     </style>
     <script>
-        function signUp(){
-            console.log('console test');
-            let userName = $('#userName').val()
-            let userId = $('#userId').val()
-            let userPw = $('#userPw').val()
-            let userSex = document.getElementById("male").checked ? 'male' : 'femail';
-            $.ajax({
-                type: "POST",
-                url: "/register",
-                data: {userName_give: userName, userId_give: userId, userPw_give: userPw, userSex_give: userSex},
-                success: function (response) {
-                    if (response['result'] == 'success'){
-                        alert(response["msg"]);
-                        window.location.replace("/result")
-                    }else{
-                        console.log('fail');
-                        alert('실패!');
+        function edit(){
+            console.log('edit test');
+            let userId = '{{user_info.id}}'
+            let editName = $('#userName').val()
+            let editPw = $('#userPw').val()
+            if(editName!=null && editPw!=null){
+                $.ajax({
+                    type: "POST",
+                    url: "/edit",
+                    data: {userId_give: userId, editName_give: editName, editPw_give: editPw},
+                    success: function (response) {
+                        if (response['result'] == 'success'){
+                            alert(response["msg"]);
+                            window.location.replace("/result")
+                        }else{
+                            console.log('fail');
+                            alert('실패!');
+                        }                    
                     }
-                    
-                }
-            })
+                })
+            }else{
+                alert('정보를 입력해주세요!')
+            }
         }
                        
         function go_account(){
