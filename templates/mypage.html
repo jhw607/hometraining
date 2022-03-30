@@ -73,6 +73,17 @@
           width: 470px;
           height: 280px;
       }
+      #box-two{
+        height: 140px;
+        padding-top: 5%;
+        padding-bottom: 5%;
+        text-align: center;
+        /* margin: auto; */
+      }
+      #tagbox{
+        display: flex;
+        justify-content: center; 
+      }
       .box-three{
           font-size: 25px;
           margin-top: 50px;
@@ -106,33 +117,56 @@
 
     <script>
       // 영상 띄우기
-      // $(document).ready(function () {
-      //   showVideos();
-      // });
+      $(document).ready(function start() {
+        console.log('consol');
+        user_load();
+        pageLoad();
+      });
 
-      // function showVideos(){
-      //   //   ajax 코드
-      // }
-      // 최근 한 운동 id: #box-one
-      // 가장 많이 한 운동 id: #box-two
+      function user_load(){
+        console.log('user_load');
+        // console.log(username);
+        $.ajax({
+            type: "GET",
+            url: "/load",
+            data: {},
+            success: function (response) {
+                if (response['result'] == 'success') {
+                    // user_info 유저정보 받아오기
+                    let user_info = response['user']
+                    sessionStorage.setItem('id', user_info['id']);
+                    sessionStorage.setItem('name', user_info['name']);
+                    // console.log('user_info');
+                    // console.log(user_info);                   
+                }
+                else{
+                  console.log('유저정보 못받아옴;');
+                }
+            }
+        })
+      }
 
+      function pageLoad(){
+        let user_id = sessionStorage.getItem('id');
+        let user_name = sessionStorage.getItem('name');
+        document.getElementById('userTitle').innerHTML = user_name+'님, 오늘도 건강하세요!';
+
+        // to do
+        // 1. user_id에 해당하는 정보를 records 테이블에서 불러옴
+        // 2. timestamp 보고 가장 최근 영상정보 반환 -> #recent 
+        // 3. 많이 한 운동 태그
+        // 4. 지난주 범위 내에 운동한 영상개수/누적시간 -> #lastWeekRank/#lastWeekHour
+        // 5. 이번주 범위 내에 운동한 누적시간 -> #thisWeekHour
+
+      }
       
 // 운동하러가기 버튼
 
         function exercise(){
-          alert("운동하러 가자!!!");
+          // alert("운동하러 가자!!!");
+          window.location.replace("/result");
         }
-
-//       function exercise() {
-//         $.ajax({
-//           type: "GET",
-//           url: "/result",
-//           data: {},
-//           success: function (response) {
-//             window.location.replace("/result")
-//             }
-//         });
-//       }
+   
 
     </script>
   </head>
@@ -146,7 +180,7 @@
     <div class="wrapper-one column">
         <div class="box box-small" id="box-one">
           최근 한 운동
-          <iframe
+          <iframe id="recent"
             width="420"
             height="240"
             src="https://www.youtube.com/embed/wrLlzn5TjLY"
@@ -154,13 +188,12 @@
           </iframe>
         </div>
         <div class="box box-small" id="box-two">
-          가장 많이 한 운동
-            <iframe
-              width="420"
-              height="240"
-              src="https://www.youtube.com/embed/myNjmnvI6x0"
-            >
-            </iframe>
+          가장 많이 한 운동 태그
+            <div class="tags are-large" id="tagbox">
+                <span class="tag is-warning" id="time_tag">#time</span>
+                <span class="tag is-danger" id="tool_tag">#tool</span>
+                <span class="tag is-success" id="body_tag">#body</span>
+            </div>            
         </div>
       </div>
 
