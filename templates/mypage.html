@@ -190,61 +190,59 @@
                 </a>
               </div>
             </div>
-          </nav>
+        </nav>
         <div id="userTitle" class="title">
             <p>user님, 오늘도 건강하세요!</p>
         </div>
     
-    <div class="columns">
-    <div class="wrapper-one column">
-        <div class="box box-small" id="box-one">
-          최근 한 운동
-          <iframe id="recent"
-            width="420"
-            height="240"
-            src="https://www.youtube.com/embed/wrLlzn5TjLY"
-          >
-          </iframe>
-        </div>
-        <div class="box box-small" id="box-two">
-          가장 많이 한 운동 태그
-            <div class="tags are-large" id="tagbox">
-                <span class="tag is-warning" id="time_tag">#time</span>
-                <span class="tag is-danger" id="tool_tag">#tool</span>
-                <span class="tag is-success" id="body_tag">#body</span>
-            </div>            
+        <div class="columns">
+          <div class="wrapper-one column">
+              <div class="box box-small" id="box-one">
+                최근 한 운동
+                <iframe id="recent"
+                  width="420"
+                  height="240"
+                  src="https://www.youtube.com/embed/wrLlzn5TjLY"
+                >
+                </iframe>
+              </div>
+              <div class="box box-small" id="box-two">
+                가장 많이 한 운동 태그
+                  <div class="tags are-large" id="tagbox">
+                      <span class="tag is-warning" id="time_tag">#time</span>
+                      <span class="tag is-danger" id="tool_tag">#tool</span>
+                      <span class="tag is-success" id="body_tag">#body</span>
+                  </div>            
+              </div>
+          </div>
+
+          <div class="wrapper-two column float-container">
+              <div class="float-child">
+                <div class="ranking" id="lastWeekRank">
+                    <p>00위</p>
+                    <p>지난 주 랭킹</p>
+                </div>
+              </div>
+              
+              <div class="float-child">
+                <div class="ranking" id="lastWeekHour">
+                  <p>00시간 00분</p>
+                  <p>지난 주 운동량</p>
+                </div>
+              </div>
+
+              <div class="ranking" id="thisWeekHour">
+                  <p>00시간 00분</p>
+                  <p>이번 주 운동량</p>
+              </div>  
+                
+              <button class="myBtn" onclick="exercise()">
+                  <img src="../static/runner.png" alt="Runner" width="200" height="100"/>
+                    운동하러 가기
+              </button>
+          </div>
         </div>
       </div>
-
-        <div class="wrapper-two column float-container">
-            <div class="float-child">
-              <div class="ranking" id="lastWeekRank">
-                  <p>00위</p>
-                  <p>지난 주 랭킹</p>
-                </div>
-            </div>
-            
-            <div class="float-child">
-              <div class="ranking" id="lastWeekHour">
-                <p>00시간 00분</p>
-                <p>지난 주 운동량</p>
-              </div>
-            </div>
-
-            <div class="ranking" id="thisWeekHour">
-                <p>00시간 00분</p>
-                <p>이번 주 운동량</p>
-              </div>  
-              
-            <button class="myBtn" onclick="exercise()">
-                <img src="../static/runner.png" alt="Runner" width="200" height="100"/>
-                  운동하러 가기
-            </button>
-        </div>
-        
-          
-    </div>
-</div>
     </div>
   </body>
 </html>
