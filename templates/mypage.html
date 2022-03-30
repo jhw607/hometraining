@@ -172,6 +172,25 @@
   </head>
   <body>
     <div class="wrapper">
+      <div class="wrap">
+        <nav class="navbar-end" role="navigation" aria-label="dropdown navigation">
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                {{username}}님
+              </a>
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  회원정보
+                </a>
+                <a class="navbar-item" onclick="exercise()">
+                    운동하기
+                </a>
+                <a class="navbar-item" onclick="go_mypage()">
+                  분석
+                </a>
+              </div>
+            </div>
+          </nav>
         <div id="userTitle" class="title">
             <p>user님, 오늘도 건강하세요!</p>
         </div>

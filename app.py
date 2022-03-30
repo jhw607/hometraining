@@ -98,10 +98,17 @@ def video_search():
 	return jsonify({'result':'success', 'video_list':videos})
 
 
-@application.route('/mypage', methods=['GET'])
+@application.route('/mypage')
 def myPage():
-	# db.user.find
-	return render_template('mypage.html')
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, secret_key, algorithms=[algorithm_key])
+        user_info = db.user.find_one({'id': payload['id']})
+        return render_template('mypage.html', username=user_info['name'])
+    except jwt.ExpiredSignatureError:
+        return redirect("http://localhost:5000/")
+    except jwt.exceptions.DecodeError:
+        return redirect("http://localhost:5000/")
 
 
 @application.route('/load', methods=['GET'])

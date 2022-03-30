@@ -10,11 +10,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <!--  js 가져오기 -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>
-    <!-- jQuery 가져오기 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- 폰트 가져오기 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" 교차 출처>
@@ -148,12 +147,41 @@
             random_bool = true;
             search(true);
         }
-        
+        function go_mypage(){
+            $.ajax({
+                type: "GET",
+                url: "/mypage",
+                data: {},
+                success: function(response){
+                    console.log('dddddddd')
+                    $.cookie('mytoken', response['token']);
+                    window.location.replace("/mypage");
+                }
+              })
+        }
     </script>
 </head>
 <body>
     <!-- 전체화면 -->
     <div class="wrap">
+        <nav class="navbar-end" role="navigation" aria-label="dropdown navigation">
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                {{username}}님
+              </a>
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  회원정보
+                </a>
+                <a class="navbar-item">
+                    운동하기
+                </a>
+                <a class="navbar-item" onclick="go_mypage()">
+                  분석
+                </a>
+              </div>
+            </div>
+          </nav>
         <div class="title">
         </div>
         <div class="space">​
