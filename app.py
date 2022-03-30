@@ -1,3 +1,4 @@
+from http import client
 from multiprocessing.pool import ApplyResult
 from flask import Flask, render_template, request, url_for, redirect, jsonify
 import hashlib
@@ -16,31 +17,35 @@ algorithm_key = json_data['ALGORITHM']
 
 #MongoDB
 
-client = MongoClient('mongodb://jungle:jungle@13.125.166.86',27017)
+# client = MongoClient('mongodb://jungle:jungle@13.125.166.86',27017)
+client = MongoClient('mongodb://jungle:jungle@54.180.104.183',27017)
+# client = MongoClient('localhost', 27017)
 db = client.HomeTrainingDB
 # HomeTrainingDB 안에 user, video, record 테이블이 있음!
 # db_video = client.data
 # db_record = client.record
 
 # Flask
-application = Flask(import_name = __name__)
-application.config["JWT_SECRET_KEY"] = secret_key
+app = Flask(__name__)
+app.config["JWT_SECRET_KEY"] = secret_key
 
 
 # 메인화면
-@application.route("/")
+@app.route("/")
 def open_mainPage(): return render_template('index.html')
 
 # 회원가입페이지 이동
-@application.route("/signup")
+@app.route("/signup")
 def open_SignUpPage(): return render_template('signup.html')
 
 # 로그인 버튼
-@application.route("/login", methods=['POST'])
+
+@app.route("/login", methods=['POST'])
 def api_login():
+	print('api_login()')
 	# 아이디, 비밀번호가 일치하는 경우
-	user_id = request.form.get('userId', False)
-	user_pw = request.form.get('userPw', False)
+	user_id = request.form['userId']
+	user_pw = request.form['userPw']
  
 	# 비밀번호 hash암호화
 	pw_hash = hashlib.sha256(user_pw.encode('utf-8')).hexdigest()
@@ -54,6 +59,8 @@ def api_login():
 			'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)  # 로그인 24시간 유지
 		}
 		token = jwt.encode(payload, secret_key, algorithm=algorithm_key)
+		
+		print(token)
 
 		return jsonify({'result': 'success', 'token': token})
 	# 아이디, 비밀번호가 일치하지 않는 경우
@@ -62,8 +69,9 @@ def api_login():
 
 
 # 로그인한 후 홈으로 이동
-@application.route('/result')
+@app.route('/result')
 def home():
+	print('home()')
 	token_receive = request.cookies.get('mytoken')
 	try:
 		payload = jwt.decode(token_receive, secret_key, algorithms=[algorithm_key])
@@ -76,7 +84,7 @@ def home():
 		
 
 # 운동완료 버튼
-@application.route('/finish', methods=['POST'])
+@app.route('/finish', methods=['POST'])
 def record_finish():
 	user_id_receive = request.form['user_id_give']
 	video_id_receive = request.form['video_id_give'].replace('embed/','watch?v=')
@@ -102,20 +110,21 @@ def record_finish():
 
 # [회원가입 API]
 # 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
-@application.route('/register', methods=['POST'])
+@app.route('/register', methods=['POST'])
 def api_register():
-    name_receive = request.form['userName_give']
-    id_receive = request.form['userId_give']
-    pw_receive = request.form['userPw_give'] 
-    gender_receive = request.form['userSex_give']
-    if name_receive == '' or id_receive == '' or pw_receive == '':
-        return jsonify({'result': 'empty', 'msg':'빈칸을 채워주세요'})
-    else:
-        pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
-        db.user.insert_one({'name': name_receive, 'gender': gender_receive, 'id': id_receive, 'pw': pw_hash})
-        return jsonify({'result': 'success','msg':'회원가입이 완료되었습니다.'})
+	print('api_register()')
+	name_receive = request.form['userName_give']
+	id_receive = request.form['userId_give']
+	pw_receive = request.form['userPw_give'] 
+	gender_receive = request.form['userSex_give']
+	if name_receive == '' or id_receive == '' or pw_receive == '':
+		return jsonify({'result': 'empty', 'msg':'빈칸을 채워주세요'})
+	else:
+		pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
+		db.user.insert_one({'name': name_receive, 'gender': gender_receive, 'id': id_receive, 'pw': pw_hash})
+		return jsonify({'result': 'success','msg':'회원가입이 완료되었습니다.'})
 
-@application.route('/search', methods=['POST'])
+@app.route('/search', methods=['POST'])
 def video_search():
 	time_receive = request.form['time_give']
 	tool_receive = request.form['tool_give']
@@ -128,7 +137,7 @@ def video_search():
 	return jsonify({'result':'success', 'video_list':videos})
 
 
-@application.route('/mypage')
+@app.route('/mypage')
 def myPage():
 	token_receive = request.cookies.get('mytoken')
 	try:
@@ -148,7 +157,7 @@ def myPage():
 	except jwt.exceptions.DecodeError:
 		return redirect("http://localhost:5000/")
 
-@application.route('/load', methods=['GET'])
+@app.route('/load', methods=['GET'])
 def user_info():
 	token_receive = request.cookies.get('mytoken')
 	try:
@@ -161,7 +170,7 @@ def user_info():
 	except jwt.exceptions.DecodeError:
 		return redirect("http://localhost:5000/")
 
-@application.route('/account', methods=['GET'])
+@app.route('/account', methods=['GET'])
 def user_account():
 	token_receive = request.cookies.get('mytoken')
 	try:
@@ -173,7 +182,7 @@ def user_account():
 	except jwt.exceptions.DecodeError:
 		return redirect("http://localhost:5000/")
 
-@application.route('/edit', methods=['POST'])
+@app.route('/edit', methods=['POST'])
 def account_edit():
 	id_receive = request.form['userId_give']
 	name_receive = request.form['editName_give']
@@ -184,4 +193,4 @@ def account_edit():
 
 
 if __name__ == '__main__':
-	application.run(host = '0.0.0.0',port = 5000, debug = True)
+	app.run(host = '0.0.0.0',port = 5000, debug = True)

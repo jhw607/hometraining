@@ -61,36 +61,6 @@
         background-size: cover;
       } */
     </style>
-    <script>
-        function login(){
-            $.ajax({
-              type: "POST",
-              url: "/login",
-              data: {userId:$('#userId').val(), userPw:$('#userPw').val()},
-              success: function(response){
-                  console.log(response)
-                  let mytoken = response['token']
-                   if (response['result'] == 'success') {
-                        $.cookie('mytoken', response['token']);
-                        window.location.replace("/result")
-                    } else {
-                        alert(response['msg'])
-                    }
-              }
-            })
-        };
-      function signUpBox() {
-        $.ajax({
-          type: "GET",
-          url: "/signup",
-          data: {},
-          success: function (response) {
-            window.location.replace("/signup")
-            }
-        });
-      }
-      
-    </script>
   </head>
   <body>
     <!-- 구역을 나누는 태그들 -->
@@ -101,6 +71,7 @@
           추천 서비스
         </p>
       </div>
+
       <form class="login_box">
         <div class="field">
           <label class="label"></label>
@@ -124,20 +95,50 @@
             />
           </div>
         </div>
-        <button class="button is-primary button-one" onclick="login()">
-          로그인
-        </button>
-        <button
+        
+        <input type = "button" class="button is-primary button-one"value="로그인" onclick="login()">
+          
+      
+        <input
+        type = "button"
           class="button is-primary button-two"
           id="myBtn"
-          onclick= signUpBox();
+          onclick= signUpBox()
+          value = "회원가입"
         >
-          회원가입
-        </button>
-        <!-- 
-회원가입 modal
- -->
       </form>
     </div>
+    <script>
+      function login(){         
+        
+        $.ajax({
+          type: "POST",
+          url: "/login",
+          data: {userId:$('#userId').val(), userPw:$('#userPw').val()},
+          success: function(response){
+              // console.log('response')
+              // console.log(response)
+              // let mytoken = response['token']
+               if (response['result'] == 'success') {
+                    $.cookie('mytoken', response['token']);
+                    window.location.replace("/result")
+                } else {
+                    alert(response['msg'])
+                }
+          }
+        })
+    };
+    
+    function signUpBox() {
+    $.ajax({
+      type: "GET",
+      url: "/signup",
+      data: {},
+      success: function (response) {
+        window.location.replace("/signup")
+        }
+    });
+    }
+    </script>
   </body>
 </html>
