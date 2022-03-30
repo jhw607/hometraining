@@ -8,6 +8,7 @@ from pymongo import MongoClient
 import json
 import requests
 from bs4 import BeautifulSoup
+import collections
 with open("key.json", "r") as json_file:
     json_data = json.load(json_file)
 secret_key = json_data['SECRET_KEY']
@@ -138,12 +139,13 @@ def myPage():
 		for i in testdata:
 			temp += i['hour']
 		recent = list(db.record.find({'user': user_info['id']}))[-1]['video'].replace('watch?v=','embed/')
-		return render_template('mypage.html', username=user_info['name'], total_hour = temp//60, recentvideo = recent)
+		l1 = list(db.record.find({'user': user_info['id']}))
+		t1, t2, t3 = sorted(collections.Counter([i['tag'] for i in l1]).items(), reverse=True)[0][0].split(',')
+		return render_template('mypage.html', username=user_info['name'], total_hour = temp//60, recentvideo = recent, t1=t1, t2=t2, t3=t3)
 	except jwt.ExpiredSignatureError:
 		return redirect("http://localhost:5000/")
 	except jwt.exceptions.DecodeError:
 		return redirect("http://localhost:5000/")
-
 
 @application.route('/load', methods=['GET'])
 def user_info():

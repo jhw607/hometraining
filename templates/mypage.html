@@ -124,6 +124,22 @@
     </style>
 
     <script>
+      var dict = {'short': '#15분이내',
+                    'middle': '#15분~30분',
+                    'long': '#30분이상',
+                    'noUse': '#기구미사용',
+                    'band': '#밴드',
+                    'dumbbell': '#아령',
+                    'ball': '#짐볼',
+                    'upper': '#상체',
+                    'lower': '#하체',
+                    'whole': '#전신',
+                    'none': '없음'
+        }
+        var t1 = "{{t1}}"
+        var t2 = "{{t2}}"
+        var t3 = "{{t3}}"
+        
       // 영상 띄우기
       $(document).ready(function start() {
         console.log('consol');
@@ -158,7 +174,9 @@
         let user_id = sessionStorage.getItem('id');
         let user_name = sessionStorage.getItem('name');
         document.getElementById('userTitle').innerHTML = user_name+'님, 오늘도 건강하세요!';
-
+        document.getElementById("time_tag").innerHTML=dict[t1];
+        document.getElementById("tool_tag").innerHTML=dict[t2];
+        document.getElementById("body_tag").innerHTML=dict[t3];
         // to do
         // 1. user_id에 해당하는 정보를 records 테이블에서 불러옴
         // 2. timestamp 보고 가장 최근 영상정보 반환 -> #recent 
@@ -217,9 +235,9 @@
               <div class="box box-small" id="box-two">
                 <p>가장 많이 한 운동 태그</p>
                   <div class="tags are-large" id="tagbox">
-                      <span class="tag is-warning" id="time_tag">#time</span>
-                      <span class="tag is-danger" id="tool_tag">#tool</span>
-                      <span class="tag is-success" id="body_tag">#body</span>
+                      <span class="tag is-warning" id="time_tag">1</span>
+                      <span class="tag is-danger" id="tool_tag">2</span>
+                      <span class="tag is-success" id="body_tag">3</span>
                   </div>            
               </div>
 
