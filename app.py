@@ -78,12 +78,13 @@ def home():
 @application.route('/finish', methods=['POST'])
 def record_finish():
 	user_id_receive = request.form['user_id_give']
-	video_id_receive = request.form['video_id_give']
+	video_id_receive = request.form['video_id_give'].replace('embed/','watch?v=')
+	print(video_id_receive)
 	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
 	data = requests.get(video_id_receive, headers=headers)
 	soup = BeautifulSoup(data.text, 'html.parser')
-	hour = soup.select('#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > div.ytp-time-display.notranslate > span:nth-child(2) > span.ytp-time-duration')
-
+	hour = int(str(soup).split("u0026dur=")[1].split(".")[0])
+	
 	db.record.insert_one({
 		'user': user_id_receive,
 		'video': video_id_receive,
