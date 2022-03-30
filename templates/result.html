@@ -155,7 +155,21 @@
                     }
                 }
             });
+            
+             //운동완료 버튼 상태변경
+             if($('#finish-button').length > 0){
+                document.getElementById('finish-button').remove();
+             }
+             if($('#finish-button-end').length > 0){
+                document.getElementById('finish-button-end').remove();
+             }
+            temp_html = `<button id="finish-button" onclick="finish()" class="btn btn-lg btn-outline-info">운동완료</button>`;
+            $('#finish-button-space').append(temp_html);
+            
         }
+            
+        
+
         function any(){
             random_bool = true;
             search(true);
@@ -204,7 +218,8 @@
                     }
                 })
             //운동완료 버튼 상태변경
-            document.getElementById('finish-button').style.display = 'none';
+            // document.getElementById('finish-button').style.display = 'none';
+            $('#finish-button').remove();
             temp_html = `<button id="finish-button-end" class="btn btn-lg btn-info">운동완료</button>`;
             $('#finish-button-space').append(temp_html);
         }
@@ -288,7 +303,6 @@
                 <button class="button is-danger re" onclick="window.location.reload()">조건 바꾸기</button>
             </div>​        
             <div id="finish-button-space" class="finish-button-space">
-                <button id="finish-button" onclick="finish()" class="btn btn-lg btn-outline-info">운동완료</button>
             </div>
         </div>
     </div>
