@@ -138,7 +138,8 @@ def myPage():
 		temp = 0
 		for i in testdata:
 			temp += i['hour']
-		recent = list(db.record.find({'user': user_info['id']}))[-1]['video'].replace('watch?v=','embed/')
+		recent = "http://www.youtube.com/embed/"+list(db.record.find({'user': user_info['id']}))[-1]['video']
+		print(recent)
 		l1 = list(db.record.find({'user': user_info['id']}))
 		t1, t2, t3 = sorted(collections.Counter([i['tag'] for i in l1]).items(), reverse=True)[0][0].split(',')
 		return render_template('mypage.html', username=user_info['name'], total_hour = temp//60, recentvideo = recent, t1=t1, t2=t2, t3=t3)
