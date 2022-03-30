@@ -66,7 +66,7 @@ def home():
 	try:
 		payload = jwt.decode(token_receive, secret_key, algorithms=[algorithm_key])
 		user_info = db.user.find_one({'id': payload['id']})
-		return render_template('result.html', username=user_info['name'])
+		return render_template('result.html', user=user_info)
 	except jwt.ExpiredSignatureError:
 		return redirect("http://localhost:5000/")
 	except jwt.exceptions.DecodeError:
@@ -76,6 +76,7 @@ def home():
 # 운동완료 버튼
 @application.route('/finish', methods=['POST'])
 def record_finish():
+	user_id_receive = request.form['user_id_give']
 	video_id_receive = request.form['video_id_give']
 	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
 	data = requests.get(video_id_receive, headers=headers)
@@ -83,6 +84,7 @@ def record_finish():
 	hour = soup.select('#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > div.ytp-time-display.notranslate > span:nth-child(2) > span.ytp-time-duration')
 
 	db_record.record.insert_one({
+		'user': user_id_receive,
 		'video': video_id_receive,
 		'timestamp': request.form['timestamp_give'],
 		'tag': request.form['tag_give'],

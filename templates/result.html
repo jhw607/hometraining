@@ -163,6 +163,8 @@
             window.location.replace("/account");
         }
         function finish(){
+            //유저정보
+            let user_id = '{{user.id}}';
             //영상링크
             let video_id = document.getElementById("video-box")['src'];
             //타임스탬프(해당날짜)
@@ -179,7 +181,7 @@
             $.ajax({
                     type: "POST",
                     url: "/finish",
-                    data: {'video_id_give':video_id, 'timestamp_give':timestamp, 'tag_give':tagText}, //'user_id_give':user_id, 'hour_give':hour
+                    data: {'user_id_give':user_id, 'video_id_give':video_id, 'timestamp_give':timestamp, 'tag_give':tagText}, //'hour_give':hour
                     success: function (response) {
                         if (response['result'] == 'success') {
                             alert(response['msg']);
@@ -198,7 +200,7 @@
     <nav class="navbar-end" role="navigation" aria-label="dropdown navigation">
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
-            {{username}}님
+            {{user.name}}님
           </a>
           <div class="navbar-dropdown">
             <a class="navbar-item" onclick="go_account()">
@@ -270,6 +272,9 @@
                 <button class="button is-primary re" onclick="search()">다른 영상 추천</button>
                 <button class="button is-danger re" onclick="window.location.reload()">조건 바꾸기</button>
             </div>​        
+            <div>
+                <button onclick="finish()">운동완료</button>
+            </div>
         </div>
     </div>
 </body>
