@@ -162,6 +162,35 @@
         function go_account(){
             window.location.replace("/account");
         }
+        function finish(){
+            //영상링크
+            let video_id = document.getElementById("video-box")['src'];
+            //타임스탬프(해당날짜)
+            let date = new Date()
+            let fullDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}.`;
+            let timestamp = fullDate;
+            //태그들
+            let time = $(`#ht_time`).find(":selected").val();
+            let tool = $(`#ht_tool`).find(":selected").val();
+            let body = $(`#ht_body`).find(":selected").val();
+            let tagText = time.concat(",", tool, ",",body);
+            //영상길이
+
+            $.ajax({
+                    type: "POST",
+                    url: "/finish",
+                    data: {'video_id_give':video_id, 'timestamp_give':timestamp, 'tag_give':tagText}, //'user_id_give':user_id, 'hour_give':hour
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            alert(response['msg']);
+                        } else {
+                            alert("연결안됨");
+                        }
+                    }
+                })
+            }
+
+
     </script>
 </head>
 <body>

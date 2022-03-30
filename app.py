@@ -6,6 +6,8 @@ import datetime
 import jwt
 from pymongo import MongoClient
 import json
+import requests
+from bs4 import BeautifulSoup
 with open("key.json", "r") as json_file:
     json_data = json.load(json_file)
 secret_key = json_data['SECRET_KEY']
@@ -16,6 +18,7 @@ uri = "mongodb+srv://cluster0.ctkbc.mongodb.net/myFirstDatabase?authSource=%24ex
 client = MongoClient(uri,tls=True, tlsCertificateKeyFile='X509-cert-6481087293358866486.pem')
 db = client.account
 db_video = client.data
+db_record = client.record
 
 # Flask
 application = Flask(import_name = __name__)
@@ -68,7 +71,24 @@ def home():
 		return redirect("http://localhost:5000/")
 	except jwt.exceptions.DecodeError:
 		return redirect("http://localhost:5000/")
+		
 
+# 운동완료 버튼
+@application.route('/finish', methods=['POST'])
+def record_finish():
+	video_id_receive = request.form['video_id_give']
+	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+	data = requests.get(video_id_receive, headers=headers)
+	soup = BeautifulSoup(data.text, 'html.parser')
+	hour = soup.select('#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > div.ytp-time-display.notranslate > span:nth-child(2) > span.ytp-time-duration')
+
+	db_record.record.insert_one({
+		'video': video_id_receive,
+		'timestamp': request.form['timestamp_give'],
+		'tag': request.form['tag_give'],
+		'hour': hour
+		})
+	return jsonify({'result': 'success', 'msg': '서버연결됨'})
 
 # [회원가입 API]
 # 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
