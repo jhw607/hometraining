@@ -84,12 +84,17 @@ def record_finish():
 	data = requests.get(video_id_receive, headers=headers)
 	soup = BeautifulSoup(data.text, 'html.parser')
 	hour = int(str(soup).split("u0026dur=")[1].split(".")[0])
-	
+
+	video_id = video_id_receive.split('watch?v=')[1]
+	video = db.video.find_one({'url':video_id})
+	print(video)
+	tag = video['HT_TIME']+','+video['HT_TOOL']+','+video['HT_BODY']
+	print(tag)
 	db.record.insert_one({
 		'user': user_id_receive,
-		'video': video_id_receive,
+		'video': video_id,
 		'timestamp': request.form['timestamp_give'],
-		'tag': request.form['tag_give'],
+		'tag': tag,
 		'hour': hour
 		})
 	return jsonify({'result': 'success', 'msg': '수고하셨습니다!'})
