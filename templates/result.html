@@ -159,6 +159,9 @@
                 }
               })
         }
+        function go_account(){
+            window.location.replace("/account");
+        }
     </script>
 </head>
 <body>
@@ -169,7 +172,7 @@
             {{username}}님
           </a>
           <div class="navbar-dropdown">
-            <a class="navbar-item">
+            <a class="navbar-item" onclick="go_account()">
               회원정보
             </a>
             <a class="navbar-item">
