@@ -18,28 +18,38 @@
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>
     <!-- 폰트 가져오기 -->
+<<<<<<< Updated upstream
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+=======
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" 교차 출처>
+>>>>>>> Stashed changes
     <link
       href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
       rel="stylesheet"
     />
+<<<<<<< Updated upstream
     <style>
       * {
         font-family: "Do Hyeon", sans-serif;
       }
+=======
+    <style type="text/css">
+    *{
+        font-family: "Do Hyeon", sans-serif;
+    }
+>>>>>>> Stashed changes
     .wrap {
         width: 900px;
-        margin: auto;
+        position: absolute; left: 50%; top: 40%; 
+        transform: translate(-50%, -50%); text-align: center;
+
     }​
-    .space {
-        height: 300px;
-        margin: auto;
-    }
     #search-box {
         /* color: black; */
         font-weight: bold;
-        margin: 100px, auto;
+        margin: auto;
         text-align: center;
     }
     .drop-box {
@@ -216,28 +226,26 @@
 </head>
 <body>
     <!-- 전체화면 -->
-    <nav class="navbar-end" role="navigation" aria-label="dropdown navigation">
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            {{user.name}}님
-          </a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" onclick="go_account()">
-              회원정보
-            </a>
-            <a class="navbar-item">
-                운동하기
-            </a>
-            <a class="navbar-item" onclick="go_mypage()">
-              분석
-            </a>
-          </div>
-        </div>
-      </nav>
     <div class="wrap">
+        <nav class="navbar-end" role="navigation" aria-label="dropdown navigation">
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                {{user.name}}님
+              </a>
+              <div class="navbar-dropdown">
+                <a class="navbar-item" onclick="go_account()">
+                  회원정보
+                </a>
+                <a class="navbar-item">
+                    운동하기
+                </a>
+                <a class="navbar-item" onclick="go_mypage()">
+                  분석
+                </a>
+              </div>
+            </div>
+        </nav>
         <div class="title">
-        </div>
-        <div class="space">​
         </div>
         <!-- 조건 검색 박스 -->
         <div id="search-box" class="box">
@@ -245,7 +253,7 @@
             <div class="drop-box">
                 <span class="select is-success drop" >
                     <select id="ht_time">
-                    <option value="none">소요시간 선택</option>
+                    <option value="none" font="Do Hy">소요시간 선택</option>
                     <option value="short">15분 이내</option>
                     <option value="middle">15분 이상 30분 이내</option>
                     <option value="long">30분 이상</option>
@@ -269,11 +277,11 @@
                     </select>
                 </span>      
                 <span>
-                    <button class="button is-dark" type="submit" onclick="search()">조회</button>
+                    <button class="button is-dark" type="submit" onclick="search()"><p>조회</p></button>
                 </span>
             </div>
             <div class="buttons drop-box">
-                <button class="button is-success is-fullwidth" onclick="any()">아무거나 할래요!</button>
+                <button class="button is-success is-fullwidth" onclick="any()"><p>아무거나 할래요!</p></button>
             </div>                       
         </div>
         <div id="results">

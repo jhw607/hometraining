@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>홈트 | 로그인</title>
+    <title>홈트 | 마이페이지</title>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- Bootstrap CSS -->
     <link
@@ -43,76 +43,84 @@
         font-family: "Do Hyeon", sans-serif;
       }
       .wrapper{
-          margin-top: 10px;
-          height: 90%;
-          width: 100%;
+        width: 900px;
+        margin: auto;
+        padding: 30px;
+      }
+      .space {
+        height: 50px;
+        margin: auto;
       }
       .wrapper-one {
-        height: 500px;
+        width: 600px;
+        margin: auto;
         margin-top: 5px;
-      }
-      .wrapper-two{
-          width: 500px;
-          height: 500px;
-          margin-top: 30px;
-          position: relative;
       }
       .title {
         background-color: #6dcbce;
         color: white;
         font-weight: 300;
         font-size: 40px;
-        padding: 4px;
+        padding: 5px;
         text-align: center;
       }
       .box{
-          margin-left: 50px;
-          text-align: left;
-          padding: 5px;
-          font-size: 20px;
-          width: 470px;
-          height: 280px;
+        margin: auto;
+        text-align: center;
+        padding: 5px;
+        font-size: 20px;      
+      }
+      #box-one{
+        margin-top: 5%;
+        margin-bottom: 5%;
+        padding: 5%;
+        text-align: center;
       }
       #box-two{
         height: 140px;
         padding-top: 5%;
         padding-bottom: 5%;
         text-align: center;
-        /* margin: auto; */
       }
       #tagbox{
         display: flex;
         justify-content: center; 
       }
-      .box-three{
-          font-size: 25px;
-          margin-top: 50px;
-          margin-right: 40px;
-          border-style: dotted;
-      }
       .float-container {
-          width: 50px;
-          margin-top: 40px;
+          width: auto;
+          height: 200px;
+          margin-top: 10px;
           align-items: center;
           text-align: center;
       }
       .float-child {
+          padding-top: 5%;
+          padding-bottom: 5%;
           width: 50%;
           float: left;
       }
-      .ranking {
-          font-size: 20px;
+      .ranking p {
+          margin-top: 5px;
+          font-size: 25px;
           text-align: center;
       }
+      .box p {
+          margin: 5px;
+          
+      }
       .myBtn{
-        background-color: white;
+          background-color: white;
           border-color: #CF9FFF ;
           border-style: solid;
           border-radius: 10px;
+          border-width: 3px;
+          box-shadow: 5px;
           font-size: 20px;
-          font-weight: 2000;
-          margin-top: 50px;
+          width: 100%;
       }
+      /* p.box {
+          padding: 5px;
+      } */
     </style>
 
     <script>
@@ -195,10 +203,10 @@
             <p>user님, 오늘도 건강하세요!</p>
         </div>
     
-        <div class="columns">
+        <div class="">
           <div class="wrapper-one column">
               <div class="box box-small" id="box-one">
-                최근 한 운동
+                <p>최근 한 운동</p>
                 <iframe id="recent"
                   width="420"
                   height="240"
@@ -207,40 +215,35 @@
                 </iframe>
               </div>
               <div class="box box-small" id="box-two">
-                가장 많이 한 운동 태그
+                <p>가장 많이 한 운동 태그</p>
                   <div class="tags are-large" id="tagbox">
                       <span class="tag is-warning" id="time_tag">#time</span>
                       <span class="tag is-danger" id="tool_tag">#tool</span>
                       <span class="tag is-success" id="body_tag">#body</span>
                   </div>            
               </div>
-          </div>
 
-          <div class="wrapper-two column float-container">
-              <div class="float-child">
-                <div class="ranking" id="lastWeekRank">
-                    <p>00위</p>
-                    <p>지난 주 랭킹</p>
+              <div class="float-container box">
+                <div class="ranking float-child" >                  
+                  <p>지난 주 랭킹</p>
+                  <p>지난 주 운동량</p>
+                  <p>이번 주 운동량</p>
+                </div>
+                <div class="ranking float-child">
+                  <p id="lastWeekRank">00위</p>
+                  <p id="lastWeekHour">00시간 00분</p>
+                  <p id="thisWeekHour">00시간 00분</p>
                 </div>
               </div>
               
-              <div class="float-child">
-                <div class="ranking" id="lastWeekHour">
-                  <p>00시간 00분</p>
-                  <p>지난 주 운동량</p>
-                </div>
-              </div>
-
-              <div class="ranking" id="thisWeekHour">
-                  <p>00시간 00분</p>
-                  <p>이번 주 운동량</p>
-              </div>  
-                
-              <button class="myBtn" onclick="exercise()">
+              <div class="box">
+                <button class="myBtn" onclick="exercise()">
                   <img src="../static/runner.png" alt="Runner" width="200" height="100"/>
-                    운동하러 가기
-              </button>
-          </div>
+                  <span>운동하러 가기</span>
+                </button>
+              </div>
+              
+            </div>
         </div>
       </div>
     </div>
