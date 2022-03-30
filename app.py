@@ -132,7 +132,8 @@ def myPage():
 		temp = 0
 		for i in testdata:
 			temp += i['hour']
-		return render_template('mypage.html', username=user_info['name'], total_hour = temp//60)
+		recent = list(db.record.find({'user': user_info['id']}))[-1]['video'].replace('watch?v=','embed/')
+		return render_template('mypage.html', username=user_info['name'], total_hour = temp//60, recentvideo = recent)
 	except jwt.ExpiredSignatureError:
 		return redirect("http://localhost:5000/")
 	except jwt.exceptions.DecodeError:
