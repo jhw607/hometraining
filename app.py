@@ -14,11 +14,12 @@ secret_key = json_data['SECRET_KEY']
 algorithm_key = json_data['ALGORITHM']
 
 #MongoDB
-uri = "mongodb+srv://cluster0.ctkbc.mongodb.net/myFirstDatabase?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority"
-client = MongoClient(uri,tls=True, tlsCertificateKeyFile='X509-cert-6481087293358866486.pem')
-db = client.account
-db_video = client.data
-db_record = client.record
+
+client = MongoClient('mongodb://jungle:jungle@13.125.166.86',27017)
+db = client.HomeTrainingDB
+# HomeTrainingDB 안에 user, video, record 테이블이 있음!
+# db_video = client.data
+# db_record = client.record
 
 # Flask
 application = Flask(import_name = __name__)
@@ -83,7 +84,7 @@ def record_finish():
 	soup = BeautifulSoup(data.text, 'html.parser')
 	hour = soup.select('#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > div.ytp-time-display.notranslate > span:nth-child(2) > span.ytp-time-duration')
 
-	db_record.record.insert_one({
+	db.record.insert_one({
 		'user': user_id_receive,
 		'video': video_id_receive,
 		'timestamp': request.form['timestamp_give'],
@@ -113,9 +114,9 @@ def video_search():
 	tool_receive = request.form['tool_give']
 	body_receive = request.form['body_give']
 	if time_receive != 'u':
-		videos = list(db_video.video.find({'HT_TIME':time_receive, 'HT_TOOL':tool_receive, 'HT_BODY':body_receive}, {'_id':False}))
+		videos = list(db.video.find({'HT_TIME':time_receive, 'HT_TOOL':tool_receive, 'HT_BODY':body_receive}, {'_id':False}))
 	else:
-		videos = list(db_video.video.find({}, {'_id':False}))
+		videos = list(db.video.find({}, {'_id':False}))
      
 	return jsonify({'result':'success', 'video_list':videos})
 
