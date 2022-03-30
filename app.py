@@ -124,15 +124,19 @@ def video_search():
 
 @application.route('/mypage')
 def myPage():
-    token_receive = request.cookies.get('mytoken')
-    try:
-        payload = jwt.decode(token_receive, secret_key, algorithms=[algorithm_key])
-        user_info = db.user.find_one({'id': payload['id']})
-        return render_template('mypage.html', username=user_info['name'])
-    except jwt.ExpiredSignatureError:
-        return redirect("http://localhost:5000/")
-    except jwt.exceptions.DecodeError:
-        return redirect("http://localhost:5000/")
+	token_receive = request.cookies.get('mytoken')
+	try:
+		payload = jwt.decode(token_receive, secret_key, algorithms=[algorithm_key])
+		user_info = db.user.find_one({'id': payload['id']})
+		testdata = db.record.find({'user': user_info['id']})
+		temp = 0
+		for i in testdata:
+			temp += i['hour']
+		return render_template('mypage.html', username=user_info['name'], total_hour = temp//60)
+	except jwt.ExpiredSignatureError:
+		return redirect("http://localhost:5000/")
+	except jwt.exceptions.DecodeError:
+		return redirect("http://localhost:5000/")
 
 
 @application.route('/load', methods=['GET'])
