@@ -88,7 +88,7 @@
       }
       .float-container {
           width: auto;
-          height: 200px;
+          height: 100px;
           margin-top: 10px;
           align-items: center;
           text-align: center;
@@ -102,6 +102,10 @@
       .ranking p {
           margin-top: 5px;
           font-size: 25px;
+          color: yellow;
+          text-shadow: black;
+          /* border-color: black;
+          border-width: 1px; */
           text-align: center;
       }
       .box p {
@@ -216,13 +220,21 @@
                 </a>
               </div>
             </div>
-        </nav>
-        <div id="userTitle" class="title">
+          </nav>
+          <div id="userTitle" class="title">
             <p>user님, 오늘도 건강하세요!</p>
-        </div>
-    
-        <div class="">
-          <div class="wrapper-one column">
+          </div>
+          
+          <div class="">
+            <div class="wrapper-one column">
+              <div class="float-container box">
+                <div class="ranking float-child" >                  
+                  <p>누적 운동량</p>
+                </div>
+                <div class="ranking float-child">
+                  <p id="lastWeekRank">{{total_hour}}분</p>
+                </div>
+              </div>
               <div class="box box-small" id="box-one">
                 <p>최근 한 운동</p>
                 <iframe id="recent"
@@ -241,18 +253,6 @@
                   </div>            
               </div>
 
-              <div class="float-container box">
-                <div class="ranking float-child" >                  
-                  <p>누적 운동량</p>
-                  <p>지난 주 운동량</p>
-                  <p>이번 주 운동량</p>
-                </div>
-                <div class="ranking float-child">
-                  <p id="lastWeekRank">{{total_hour}}분</p>
-                  <p id="lastWeekHour">00시간 00분</p>
-                  <p id="thisWeekHour">00시간 00분</p>
-                </div>
-              </div>
               
               <div class="box">
                 <button class="myBtn" onclick="exercise()">
