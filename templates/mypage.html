@@ -160,12 +160,12 @@
 
       }
       
-// 운동하러가기 버튼
-
-        function exercise(){
-          // alert("운동하러 가자!!!");
-          window.location.replace("/result");
-        }
+      function go_account(){
+        window.location.replace("/account");
+      }
+      function exercise(){
+        window.location.replace("/result");
+      }
    
 
     </script>
@@ -179,7 +179,7 @@
                 {{username}}님
               </a>
               <div class="navbar-dropdown">
-                <a class="navbar-item">
+                <a class="navbar-item" onclick="go_account()">
                   회원정보
                 </a>
                 <a class="navbar-item" onclick="exercise()">

@@ -124,7 +124,12 @@ def user_info():
 	except jwt.exceptions.DecodeError:
 		return redirect("http://localhost:5000/")
 
-
+@application.route('/account', methods=['GET'])
+def user_account():
+	# 지금은 임의로 적은 값!!
+	# 세션 불러오는 거 전역변수로 바꾸고 나서 수정할 것!!
+	user = {'id':'userId', 'name':'userName', 'pw':'userPassward', 'gender':'female'}
+	return render_template('/account.html', user_info=user)
 
 if __name__ == '__main__':
 	application.run(host = '0.0.0.0',port = 5000, debug = True)
