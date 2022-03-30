@@ -97,16 +97,16 @@ def record_finish():
 # 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
 @application.route('/register', methods=['POST'])
 def api_register():
+    name_receive = request.form['userName_give']
+    id_receive = request.form['userId_give']
     pw_receive = request.form['userPw_give'] 
-    pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
-    db.user.insert_one({'name': request.form['userName_give'], 
-                        'gender': request.form['userSex_give'], 
-                        'id': request.form['userId_give'], 
-                        'pw': pw_hash})
-    return jsonify({
-        'result': 'success', 
-        'msg':'회원가입이 완료되었습니다.'
-        }) 
+    gender_receive = request.form['userSex_give']
+    if name_receive == '' or id_receive == '' or pw_receive == '':
+        return jsonify({'result': 'empty', 'msg':'빈칸을 채워주세요'})
+    else:
+        pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
+        db.user.insert_one({'name': name_receive, 'gender': gender_receive, 'id': id_receive, 'pw': pw_hash})
+        return jsonify({'result': 'success','msg':'회원가입이 완료되었습니다.'})
 
 @application.route('/search', methods=['POST'])
 def video_search():

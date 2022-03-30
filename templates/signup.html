@@ -68,10 +68,11 @@
                 success: function (response) {
                     if (response['result'] == 'success'){
                         alert(response["msg"]);
-                        window.location.replace("/result")
+                        window.location.replace("/")
+                    }else if(response['result'] == 'empty'){
+                        alert(response["msg"]);
                     }else{
-                        console.log('fail');
-                        alert('실패!');
+                      alert(response["msg"]);
                     }
                     
                 }
