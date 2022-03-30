@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 ​
     <title>SW사관학교 정글 W00 | 홈트레이닝 추천 시스템</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <!-- Bulma css 가져오기 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <!--  js 가져오기 -->
@@ -15,13 +18,16 @@
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>
     <!-- 폰트 가져오기 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" 교차 출처>
-    <link href="https: //fonts.googleapis.com/css2? family= 도+현 & display=swap" rel="stylesheet">
-    <style type="text/css">
-    *{
-        font-family: '도현', sans-serif;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Do Hyeon", sans-serif;
+      }
     .wrap {
         width: 900px;
         margin: auto;
@@ -77,6 +83,15 @@
 
     #results {
         display: none;
+    }
+    #finish-button-space {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0px;
+        margin-bottom: 10px;
+        padding: 0px auto auto auto;
+        text-align: center;
+        width: 690px;
     }
     </style>
     <script>
@@ -190,7 +205,11 @@
                         }
                     }
                 })
-            }
+            //운동완료 버튼 상태변경
+            document.getElementById('finish-button').style.display = 'none';
+            temp_html = `<button id="finish-button-end" class="btn btn-lg btn-info">운동완료</button>`;
+            $('#finish-button-space').append(temp_html);
+        }
 
 
     </script>
@@ -272,8 +291,8 @@
                 <button class="button is-primary re" onclick="search()">다른 영상 추천</button>
                 <button class="button is-danger re" onclick="window.location.reload()">조건 바꾸기</button>
             </div>​        
-            <div>
-                <button onclick="finish()">운동완료</button>
+            <div id="finish-button-space" class="finish-button-space">
+                <button id="finish-button" onclick="finish()" class="btn btn-lg btn-outline-info">운동완료</button>
             </div>
         </div>
     </div>

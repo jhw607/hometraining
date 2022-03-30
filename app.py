@@ -91,7 +91,7 @@ def record_finish():
 		'tag': request.form['tag_give'],
 		'hour': hour
 		})
-	return jsonify({'result': 'success', 'msg': '서버연결됨'})
+	return jsonify({'result': 'success', 'msg': '수고하셨습니다!'})
 
 # [회원가입 API]
 # 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
