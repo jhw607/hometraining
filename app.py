@@ -111,7 +111,6 @@ def api_register():
 	pw_receive = request.form['userPw_give'] 
 	gender_receive = request.form['userSex_give']
 	count = len(list(db.user.find({'id': id_receive})))
-	print(count)
 	if name_receive == '' or id_receive == '' or pw_receive == '':
 		return jsonify({'result': 'empty', 'msg':'빈칸을 채워주세요'})
 	elif count > 0:
