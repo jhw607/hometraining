@@ -117,8 +117,11 @@ def api_register():
 	id_receive = request.form['userId_give']
 	pw_receive = request.form['userPw_give'] 
 	gender_receive = request.form['userSex_give']
+	count = len(list(db.user.find({'id': 'rladudcjs'})))
 	if name_receive == '' or id_receive == '' or pw_receive == '':
 		return jsonify({'result': 'empty', 'msg':'빈칸을 채워주세요'})
+	elif count > 0:
+		return jsonify({'result': 'error', 'msg':'존재하는 아이디입니다.'})
 	else:
 		pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 		db.user.insert_one({'name': name_receive, 'gender': gender_receive, 'id': id_receive, 'pw': pw_hash})
