@@ -15,15 +15,8 @@ with open("key.json", "r") as json_file:
 secret_key = json_data['SECRET_KEY']
 algorithm_key = json_data['ALGORITHM']
 
-#MongoDB
-
-# client = MongoClient('mongodb://jungle:jungle@13.125.166.86',27017)
 client = MongoClient('mongodb://jungle:jungle@54.180.104.183',27017)
-# client = MongoClient('localhost', 27017)
 db = client.HomeTrainingDB
-# HomeTrainingDB 안에 user, video, record 테이블이 있음!
-# db_video = client.data
-# db_record = client.record
 
 # Flask
 app = Flask(__name__)
