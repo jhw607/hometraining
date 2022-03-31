@@ -199,16 +199,16 @@
             let fullDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}.`;
             let timestamp = fullDate;
             //태그들
-            let time = $(`#ht_time`).find(":selected").val();
-            let tool = $(`#ht_tool`).find(":selected").val();
-            let body = $(`#ht_body`).find(":selected").val();
-            let tagText = time.concat(",", tool, ",",body);
+            // let time = $(`#ht_time`).find(":selected").val();
+            // let tool = $(`#ht_tool`).find(":selected").val();
+            // let body = $(`#ht_body`).find(":selected").val();
+            // let tagText = time.concat(",", tool, ",",body);
             //영상길이
 
             $.ajax({
                     type: "POST",
                     url: "/finish",
-                    data: {'user_id_give':user_id, 'video_id_give':video_id, 'timestamp_give':timestamp, 'tag_give':tagText}, //'hour_give':hour
+                    data: {'user_id_give':user_id, 'video_id_give':video_id, 'timestamp_give':timestamp}, //'hour_give':hour
                     success: function (response) {
                         if (response['result'] == 'success') {
                             alert(response['msg']);

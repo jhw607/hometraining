@@ -177,7 +177,7 @@
       function pageLoad(){
         let user_id = sessionStorage.getItem('id');
         let user_name = sessionStorage.getItem('name');
-        document.getElementById('userTitle').innerHTML = user_name+'님, 오늘도 건강하세요!';
+        // document.getElementById('userTitle').innerHTML = user_name+'님, 오늘도 건강하세요!';
         document.getElementById("time_tag").innerHTML=dict[t1];
         document.getElementById("tool_tag").innerHTML=dict[t2];
         document.getElementById("body_tag").innerHTML=dict[t3];
@@ -231,7 +231,7 @@
             </div>
           </nav>
           <div id="userTitle" class="title">
-            <p>user님, 오늘도 건강하세요!</p>
+            <p>{{username}}님, 오늘도 건강하세요!</p>
           </div>
           
           <div class="">
