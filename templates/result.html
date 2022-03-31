@@ -223,6 +223,10 @@
             temp_html = `<button id="finish-button-end" class="btn btn-lg btn-info">운동완료</button>`;
             $('#finish-button-space').append(temp_html);
         }
+        function logout(){
+            $.removeCookie('mytoken');
+            window.location.replace('/');
+        }
 
 
     </script>
@@ -244,6 +248,10 @@
                 </a>
                 <a class="navbar-item" onclick="go_mypage()">
                     나의운동
+                </a>
+                <hr class="navbar-divider">
+                <a class="navbar-item" onclick="logout()">
+                    로그아웃
                 </a>
               </div>
             </div>
@@ -280,7 +288,7 @@
                     </select>
                 </span>      
                 <span>
-                    <button class="button is-dark" type="submit" onclick="search()"><p>조회</p></button>
+                    <button class="button is-dark" type="submit" onclick="search()"><p>검색</p></button>
                 </span>
             </div>
             <div class="buttons drop-box">

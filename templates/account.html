@@ -88,8 +88,13 @@
             window.location.replace("/result");
         }
         function go_mypage(){
-        window.location.replace("/mypage");
-      }
+          window.location.replace("/mypage");
+        }
+        function logout(){
+          $.removeCookie('mytoken');
+          window.location.replace('/');
+        }
+
 
     </script>
 </head>
@@ -109,6 +114,10 @@
                 </a>
                 <a class="navbar-item" onclick="go_mypage()">
                   나의운동
+                </a>
+                <hr class="navbar-divider">
+                <a class="navbar-item" onclick="logout()">
+                    로그아웃
                 </a>
               </div>
             </div>
